@@ -1,20 +1,28 @@
 package com.classes.OnlineSelenium.Cucumber;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LoginPage;
 import pages.RegistrationPage;
+import pages.SignOut;
 import pages.SignUpPage;
 
 import static org.junit.Assert.*;
+
+import org.junit.Assert;
 
 import base.TestBase;
 
 public class StepDefinitions extends TestBase {
 	
-
+	SignOut objsggnOut;
+	
+	
+	
+	
 	@Given("I am at the login form")
 	public void i_am_at_the_login_form() throws Throwable {
 		System.out.println("Starting the browser and navigate to Login page");
@@ -43,8 +51,28 @@ public class StepDefinitions extends TestBase {
 	@And("The title should be confirm you email id")
 	public void the_title_should_be_verfiy_you_email_id() {
 		System.out.println("I want to write a step with name9");
+	}
+	
+	@Then("I should click on SignOut button")
+	public void i_should_click_on_SignOut_button() {
+		//Should get the email verification screen
+		 objsggnOut = new SignOut(driver);
+		 objsggnOut.sigNOutPerform();
+
+	}
+
+	@And("The SignOut Verfication message will come")
+	public void the_SignOut_Verfication_message_will_come() {
+		try {
+		Assert.assertEquals(true, objsggnOut.signOutVerfy());
+		System.out.println("Successfully Signout");
+		}catch (Exception E) {
+			System.out.println("Failed to Signout");
+		}
 		driver.close();
 	}
+	
+	
 	
 	//Signup methods 
 
@@ -71,6 +99,8 @@ public class StepDefinitions extends TestBase {
 		driver.close();
 	}
 
+	
+	
 
 
 

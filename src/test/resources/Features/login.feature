@@ -6,6 +6,8 @@ Feature: Guest should be able to log in
     When I enter "<email>", "<password>"
     Then I should see the confirm email message on screen
     And The title should be confirm you email id
+    Then I should click on SignOut button
+    And The SignOut Verfication message will come
 
     Examples: 
       | email                     | password |

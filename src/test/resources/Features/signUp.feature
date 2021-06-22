@@ -6,6 +6,8 @@ Feature: Guest should be able to sign-up as a tutor and student
     When Guest enter "<Firstname>", "<Lastname>", "<email>", "<password>"
     Then Guest should see the Validate email message on screen
     And The title should be verfiy you email id
+    Then I should click on SignOut button
+    And The SignOut Verfication message will com
 
     Examples: 
       | url                                 | Firstname    | Lastname    | email                     | password |
