@@ -31,15 +31,15 @@ public class TutoringPreferencesPage extends PageBase{
 		}
 	}
 	
-	public Object validateSelectionTab() throws Throwable
+	public boolean lblTutorText() throws Throwable
 	{
 		waitDriver();
 		if (txtPageTitle.isDisplayed()) {
-			return new SkedioHomePage(pbDriver);
+			return true;
 		}
 		else
 		{
-			return null;
+			return false;
 		}	
 	}
 

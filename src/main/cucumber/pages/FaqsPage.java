@@ -1,19 +1,19 @@
 package pages;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import base.PageBase;
 
-public class FaqsPage extends PageBase {
+public class FaqsPage extends PageBase
+{
 	//Page Elements
 			@FindBy(xpath= "//a[normalize-space()='FAQs']")
-			WebElement faQs;
+			private WebElement lnkFaQs;
 
 			@FindBy(xpath= "//div[@class='profile-heading']")
-			WebElement profileFaqs;
+			private WebElement txtProfileFaqs;
 			
 			
 	public FaqsPage(WebDriver driver)
@@ -21,14 +21,17 @@ public class FaqsPage extends PageBase {
 		setWebDriver(driver);
 	}
 	
+	public Boolean ClickOnFaqsLink()
+	{
+		jsExecutorscrollIntoView(lnkFaQs);
+		if(lnkFaQs.isDisplayed() && lnkFaQs.isEnabled())
+		{
+			lnkFaQs.click();
+		}
+		return getFaqs();
+	}
 	public Boolean getFaqs()
 	{
-		JavascriptExecutor js = (JavascriptExecutor) pbDriver;
-		if(faQs.isDisplayed() && faQs.isEnabled())
-		{
-			faQs.click();
-		    js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-		}
-		return profileFaqs.isDisplayed();
+		return txtProfileFaqs.isDisplayed();
 	}
 }

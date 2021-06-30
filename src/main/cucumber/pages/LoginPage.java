@@ -1,18 +1,22 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import base.PageBase;
+import utils.TestUtil;
 
 public class LoginPage extends PageBase
 {
 	//Page Elements
+	@FindBy(xpath= "//button[@class='btn-close']")
+    WebElement btnClose;
 	
 		@FindBy(xpath= "//a[@class='nav-link dropdown-toggle']")
-		WebElement selectLogin;
+		WebElement navSelectLogin;
 	
 		@FindBy(xpath= "//input[@id='email']")
 		WebElement txtBoxEmail;
@@ -21,13 +25,13 @@ public class LoginPage extends PageBase
 		WebElement txtBoxPassword;
 		
 		@FindBy(xpath= "//label[contains(text(),'Remember Me!')]")
-		WebElement CheckBoxRememberMe;
+		WebElement chkBoxRememberMe;
 		
 		@FindBy(xpath = "//input[@value='Sign in']")
 		WebElement btnSignIn;
 		
 		@FindBy(xpath = "//h2[contains(text(),'Welcome back, dap custo')]")
-		WebElement ProfileName;
+		WebElement lblProfileName;
 		
 		
 		public LoginPage(WebDriver driver) 
@@ -35,63 +39,68 @@ public class LoginPage extends PageBase
 			setWebDriver(driver);
 		}
 		
-		
-		public void selectLogin()
-		{
-			if(selectLogin.isEnabled() && selectLogin.isDisplayed()) 
-			   { 
-				Select select = new Select(selectLogin);
-				select.selectByVisibleText("Tutor Login"); 
-			   } 
-			  else 
-			  { 
-			       
-			  } 
+		public void clickOnLoginType() {
+			waitForElementToAppear(navSelectLogin);
+			navSelectLogin.click();
+			
 		}
-
-		public void enterEmailandPassword(String userNAme, String PAssword)throws InterruptedException
-		{
+		
+		public void selectLoginType(String strLoginType) {
+			try {
+				pbDriver.findElement(By.xpath("//a[normalize-space()='" + strLoginType + " Login']")).click();
+			}catch(Throwable t) {
+				System.out.println(t.getLocalizedMessage());
+			}
+			
+			
+		}
+		
+		
+		
+		public void enterEmail(String strEmail) {
 			waitForElementToAppear(txtBoxEmail);
-			if(txtBoxEmail.isDisplayed()) 
-			{
-				txtBoxEmail.click();
-				txtBoxEmail.sendKeys(userNAme);
-			}
-			
+			txtBoxEmail.sendKeys(strEmail);
+		}
+		
+		public void enterPassword(String strPassword) {
 			waitForElementToAppear(txtBoxPassword);
-			if(txtBoxPassword.isDisplayed()) 
-			{
-				txtBoxPassword.click();
-				txtBoxPassword.sendKeys(PAssword);
-			}
+			txtBoxPassword.sendKeys(strPassword);
+		}
+		
+		public void clickOnChkBoxRememberMe() {
+			waitForElementToAppear(chkBoxRememberMe);
+			chkBoxRememberMe.click();
+		}
+		
+		public void clickOnbtnSignIn() {
+			waitForElementToAppear(btnSignIn);
+			btnSignIn.click();
 		}
 		
 		
-		public void ClickOnCheckBox()throws InterruptedException
+
+		public SkedioHomePage signInSkedio(String pLoginType, String pUserNAme, String pPssword)throws Throwable
 		{
-			waitForElementToAppear(CheckBoxRememberMe);
-			if(CheckBoxRememberMe.isDisplayed()) 
-			{
-				CheckBoxRememberMe.click();
-			}
-		}
-		
-		public SkedioHomePage signIn(String userName, String Password)throws InterruptedException
-		{
+			waitForPageLoad();
 			
-				enterEmailandPassword(userName,Password);
-				ClickOnCheckBox();
-				waitForElementToAppear(btnSignIn);
-				btnSignIn.click();
-				if(validateSignIn().equalsIgnoreCase("skiedo"))
-					return new SkedioHomePage(pbDriver);
-				else
-					return null;
+			if (btnClose.isDisplayed()) 
+			{
+				btnClose.click();
+			}
+			
+			
+			//clickOnLoginType();
+			TestUtil.mouseHover(navSelectLogin);
+			selectLoginType(pLoginType);
+			waitForPageLoad();
+			enterEmail(pUserNAme);
+			enterPassword(pPssword);
+			clickOnChkBoxRememberMe();
+			clickOnbtnSignIn();
+			waitForPageLoad();
+			return new SkedioHomePage(pbDriver);
 		}
 		
-		public String validateSignIn() throws InterruptedException 
-		{
-			Thread.sleep(2000);
-			return pbDriver.getTitle();
-		}
+		
+		
 }

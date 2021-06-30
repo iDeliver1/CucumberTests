@@ -21,7 +21,7 @@ public class MyEarningsPage extends PageBase {
 		
 	}
 	
-	public boolean btnMyEarnings() throws Throwable {
+	public boolean lblMyEarnings() throws Throwable {
 		btnMyEarnings.click();
 		if(validate()==true)
 			return true;

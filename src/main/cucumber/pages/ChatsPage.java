@@ -23,7 +23,7 @@ public class ChatsPage extends PageBase{
 		
 	}
 	
-	public boolean btnChats() throws Throwable{
+	public boolean lblChats() throws Throwable{
 		btnChats.click();
 		if(validate()==true)
 			return true;

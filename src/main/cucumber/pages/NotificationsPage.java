@@ -21,7 +21,7 @@ public class NotificationsPage extends PageBase{
 	return txtNotifications.isDisplayed() ;
 	
 }
- public boolean btnNotifications() throws Throwable {
+ public boolean lblNotifications() throws Throwable {
 	 btnNotifications.click();
 	 if(validate()==true)
 			return true;

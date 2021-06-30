@@ -12,10 +12,10 @@ public class MyBlogsPage extends PageBase
 	//Page Elements
 	
 		@FindBy(xpath= "//a[@href='https://skiedo.com/tutor/blogs']")
-		WebElement lnkBlogs;
+		private WebElement lnkBlogs;
 		
 		@FindBy(xpath= "//h2[contains(text(),'My Blogs')]")
-		WebElement myBlogs;
+		private WebElement txtMyBlogs;
 	
 
 		public MyBlogsPage(WebDriver driver) 
@@ -23,15 +23,18 @@ public class MyBlogsPage extends PageBase
 			setWebDriver(driver);
 		}
 		
-		public Boolean getMyBlogs()
+		public Boolean ClickOnMyBlogs()
 		{
-			JavascriptExecutor js = (JavascriptExecutor) pbDriver;
+			jsExecutorscrollIntoView(lnkBlogs);
 			if(lnkBlogs.isDisplayed() && lnkBlogs.isEnabled())
 			{
 				lnkBlogs.click();
-			    js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 			}
-			return myBlogs.isDisplayed();
+			return getMyBlogs();
+		}
+		public Boolean getMyBlogs()
+		{
+			return txtMyBlogs.isDisplayed();
 		}
 
 }

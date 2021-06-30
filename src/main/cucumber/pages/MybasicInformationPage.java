@@ -23,7 +23,7 @@ public class MybasicInformationPage extends PageBase {
 		
 		
 	}
-	public boolean btnMybasicinformation() {
+	public boolean lblMybasicinformation() {
 		btnMybasicinformation.click();
 		if(validate()==true)
 			return true;

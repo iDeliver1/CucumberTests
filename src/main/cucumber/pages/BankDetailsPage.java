@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,24 +10,28 @@ public class BankDetailsPage extends PageBase
 {
 	//Page Elements
 		@FindBy(xpath= "//a[normalize-space()='Bank Details']")
-		WebElement bankDetails;
+		private WebElement lnkBankDetails;
 		
 		@FindBy(xpath= "//div[@class='proile-heading']")
-		WebElement paymentMethod;
+		private WebElement txtPaymentMethod;
 		
 		public BankDetailsPage(WebDriver driver)
 		{
 			setWebDriver(driver);
 		}
 		
+		public Boolean clickOnBankDetailsLink()
+		{
+			jsExecutorscrollIntoView(lnkBankDetails);
+			if(lnkBankDetails.isDisplayed() && lnkBankDetails.isEnabled())
+			{
+				lnkBankDetails.click();   
+			}
+			return getBankDetails();
+		}
+		
 		public Boolean getBankDetails()
 		{
-			JavascriptExecutor js = (JavascriptExecutor) pbDriver;
-			if(bankDetails.isDisplayed() && bankDetails.isEnabled())
-			{
-				bankDetails.click();
-			    js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-			}
-			return paymentMethod.isDisplayed();
+			return txtPaymentMethod.isDisplayed();
 		}
 }
